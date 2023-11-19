@@ -56,7 +56,7 @@ function addBillSegment() {
 
   let removeButton = document.createElement("button");
   removeButton.type = "button";
-  removeButton.className = "btn btn-danger remove-segment-btn ms-3";
+  removeButton.className = "btn btn-danger remove-segment-btn ms-3 mt-4";
   removeButton.textContent = "Remove";
   removeButton.onclick = function () {
     segmentDiv.remove();
