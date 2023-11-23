@@ -3,6 +3,7 @@
   <head>
     <title>Energy Usage Recalculator</title>
     <!-- Add your CSS link here -->
+    <link rel="stylesheet" href="styles.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,7 +15,7 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <!-- Add your custom CSS here -->
+    <!-- Add custom CSS here -->
     <style>
       /* Custom CSS for blue theme */
       .btn-primary,
@@ -22,360 +23,650 @@
         border-color: #007bff;
       }
     </style>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.41.0/docxtemplater.js"></script>
     <script src="https://unpkg.com/pizzip@3.1.4/dist/pizzip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
     <script src="https://unpkg.com/pizzip@3.1.4/dist/pizzip-utils.js"></script>
   </head>
   <body>
-    <div class="container mt-4">
-      <div>
-        <h1 class="text-center">VEE Rebill Calculator</h1>
-      </div>
-      <form id="dataForm" class="form floating">
-        <div class="accordion mb-3" id="customerInfoAccordion">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseOne"
-                aria-expanded="false"
-                aria-controls="collapseOne"
-              >
-                Customer Info
-              </button>
-            </h2>
-            <div
-              id="collapseOne"
-              class="accordion-collapse collapse"
-              aria-labelledby="headingOne"
-              data-bs-parent="#customerInfoAccordion"
-            >
-              <div class="accordion-body">
-                <!-- Place your input fields here -->
-                <div class="row mb-3">
-                  <div class="form-floating col gx-1">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="customerName"
-                      placeholder="Customer Name"
-                      name="customerName"
-                    />
-                    <label for="floatingInput">Customer Name</label>
-                  </div>
-                  <div class="form-floating col gx-1">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="accountNumber"
-                      placeholder="Account Number"
-                      name="accountNumber"
-                    />
-                    <label for="floatingInput">Account Number</label>
-                  </div>
-                </div>
-                <!-- Add more fields as needed -->
-              </div>
-            </div>
-          </div>
-          <!-- Add more accordion items if needed -->
-        </div>
-
-        <div class="accordion mb-3" id="accordionExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapsetwo"
-                aria-expanded="false"
-                aria-controls="collapsetwo"
-              >
-                Premise Info
-              </button>
-            </h2>
-            <div
-              id="collapsetwo"
-              class="accordion-collapse collapse"
-              aria-labelledby="headingOne"
-              data-bs-parent="#accordionExample"
-            >
-              <div class="accordion-body">
-                <!-- Place your input fields here -->
-                <div class="row mb-3">
-                  <div class="form-floating col-6 gx-1">
-                    <input
-                      type="text"
-                      class="form-control form-control-sm"
-                      id="premiseAddress"
-                      placeholder="Premise Address"
-                      name="premiseAddress"
-                    />
-                    <label for="floatingInput">Premise Address</label>
-                  </div>
-                  <div class="form-floating col-6 gx-1">
-                    <input
-                      type="text"
-                      class="form-control form-control-sm"
-                      id="premiseCity"
-                      placeholder="Premise City"
-                      name="premiseCity"
-                    />
-                    <label for="floatingInput">Premise City</label>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-floating col-6 gx-1">
-                    <select
-                      name="premiseState"
-                      id="stateSelect"
-                      class="form-select form-control-sm"
-                    >
-                      <option value="CA">California</option>
-                      <option value="AL">Alabama</option>
-                      <option value="AK">Alaska</option>
-                      <option value="AZ">Arizona</option>
-
-                      <!-- Add other states here -->
-                    </select>
-                    <label for="floatingInput">Premise State</label>
-                  </div>
-                  <div class="form-floating col-6 gx-1">
-                    <input
-                      type="text"
-                      class="form-control form-control-sm"
-                      id="premiseZip"
-                      placeholder="Premise Zip Code"
-                      name="premiseZip"
-                    />
-                    <label for="floatingInput">Premise Zip Code</label>
-                  </div>
-                  <div class="form-floating mt-3 col-4 gx-1">
-                    <input
-                      type="text"
-                      class="form-control form-control-sm"
-                      id="meterNumber"
-                      placeholder="Meter Number"
-                      name="meterNumber"
-                    />
-                    <label for="floatingInput">Meter Number</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Add more accordion items if needed -->
-        </div>
-
-        <div class="mt-3 mb-3">
-          <div class="row">
-            <div class="col-md-3">
-              <!-- This column will take up 25% of the container width -->
-              <select
-                class="form-select pl-0"
-                aria-label="Default select example"
-              >
-                <option selected>Error Type</option>
-                <option value="1">SIO Prolonged Estimation</option>
-                <option value="2">Fatal Meter Error</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <!-- Button to trigger the off-canvas -->
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offCanvasData"
-          aria-controls="offCanvasData"
-        >
-          Prior Data Calculator
-        </button>
-
-        <br />
-        <br />
-        <br />
-        <div>
-          <div class="text-center">
-            <h3>Bill Segment Data</h3>
-          </div>
-        </div>
-        <br />
-        <!-- Continue adding form fields with Bootstrap classes -->
-        <div class="mb-3" id="billSegments">
-          <!-- Bill segments will be added here dynamically -->
-        </div>
-        <button type="button" class="btn btn-primary" id="addSegment">
-          Add Bill Segment
-        </button>
-        <button type="submit" class="btn btn-primary" id="calculateButton">
-          Calculate
-        </button>
-        <button type="button" class="btn btn-secondary" id="resetForm">
-          Reset
-        </button>
-      </form>
-      <!--Generate Letter and Letter Template Section-->
-      <div class="mt-3">
-        <button type="button" class="btn btn-success" id="generateDoc">
-          Generate Customer Letter
-        </button>
-
-        <div class="input-group mb-3 mt-3" data-bs-theme="light">
-          <label class="input-group-text" for="inputGroupFile01"
-            >Letter Template</label
-          >
-          <input
-            type="file"
-            class="form-control"
-            id="templateUpload"
-            accept=".docx"
-          />
-        </div>
-      </div>
-
-      <!--Remember Template Checkbox-->
-      <div class="form-check form-switch">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="keepTemplate"
-          name="keepTemplate"
-        />
-        <label class="form-check-label" for="flexSwitchCheckDefault"
-          >Remember Template</label
-        >
-      </div>
-
-      <!-- Target div for displaying submitted offcanvas data -->
-      <div id="submittedDataDisplay" class="mt-3">
-        <!-- Submitted data will appear here -->
-      </div>
-
-      <div id="results" class="mt-3">
-        <!-- Results will be displayed here -->
-      </div>
-    </div>
-
-    <!--Bill Segment Table-->
-    <div class="container-sm">
-      <table id="billSegmentTable" class="table">
-        <thead>
-          <!-- Table headers here -->
-        </thead>
-        <tbody>
-          <!-- Rows will be added here -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Off-canvas component -->
+    <!-- Modal for field validation -->
     <div
-      class="offcanvas offcanvas-end"
+      class="modal fade"
+      id="fieldValidationModal"
       tabindex="-1"
-      id="offCanvasData"
-      data-bs-backdrop="static"
-      aria-labelledby="offCanvasDataLabel"
+      aria-labelledby="fieldValidationModalLabel"
+      aria-hidden="true"
     >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offCanvasDataLabel">
-          Additional Information
-        </h5>
-        <button
-          type="button"
-          class="btn-close text-reset"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fieldValidationModalLabel">
+              Tasks Incomplete
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Please fill in all fields before submitting the form.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="offcanvas-body">
-        <!-- Place your additional form fields or content here -->
-        <form id="offCanvasForm">
-          <div class="mb-3">
-            <label for="dateField" class="form-label">Error Date</label>
-            <input
-              type="date"
-              class="form-control"
-              id="errorDate"
-              name="errorDate"
-            />
+    </div>
+    <div
+      class="modal fade"
+      id="taskValidationModal"
+      tabindex="-1"
+      aria-labelledby="fieldValidationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fieldValidationModalLabel">
+              Tasks Incomplete
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-          <div class="mb-3">
-            <label for="dateField" class="form-label"
-              >Estimation Start Date</label
+          <div class="modal-body">
+            Please complete all tasks before attempting to generate a letter.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
             >
-            <input
-              type="date"
-              class="form-control"
-              id="estimationDate"
-              name="estimationStartDate"
-            />
+              Close
+            </button>
           </div>
-          <div class="mb-3">
-            <label for="dateField" class="form-label">Meter Removal Date</label>
-            <input
-              type="date"
-              class="form-control"
-              id="meterRemovalDate"
-              name="meterRemovalDate"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="timeField" class="form-label">Meter Removal Time</label>
-            <input
-              type="time"
-              class="form-control"
-              id="meterRemovalTime"
-              name="meterRemovalTime"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="additionalField2" class="form-label"
-              >Prior Estimation</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="priorEstimation"
-              placeholder="Prior Estimation"
-              name="priorEstimation"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="additionalField2" class="form-label"
-              >New Meter Usage</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="newMeterUsage"
-              placeholder="New Usage"
-              name="newMeterUsage"
-            />
-          </div>
-          <!-- Add more fields as needed -->
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-
-      <div class="row justify-content-center mt-3 mb-3">
-        <div class="col-6">
-          <button type="button" class="btn btn-dark" id="toggleSideBtn">
-            Move Window
-          </button>
         </div>
       </div>
     </div>
 
-    <!-- Add JavaScript links here -->
-    <script src="calculationFunctions.js"></script>
-    <script src="documentFunctions.js"></script>
-    <script src="lookAndFeel.js"></script>
+    <!-- Navbar -->
+    <section id="navbar-section">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="showSection('home')"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="showSection('config')"
+                >Config</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <!-- Page Title-->
+    <h1 class="text-center mt-4 mb-4">VEE Rebill Calculator</h1>
+    <div class="container-fluid">
+      <div class="row">
+        <!--Task Section-->
+        <div class="col-md-2 sticky-top" id="leftSection">
+          <h3 class="text-center">Tasks</h3>
+          <ul id="taskList">
+            <li
+              id="task1"
+              class="task-button task-incomplete"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              data-bs-title="Save Customer Info to complete"
+            >
+              Customer Information Saved
+            </li>
+            <li
+              id="task2"
+              class="task-button task-incomplete"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              data-bs-title="Save Meter Removal Info to complete"
+            >
+              Meter Removal Information Saved
+            </li>
+            <!-- Add more tasks as needed -->
+          </ul>
+        </div>
+
+        <div class="ms-0 col-md-10 offset-md-2 mt-0">
+          <!-- Home Screen-->
+          <section id="home-screen">
+            <div id="homeSection">
+              <!-- Customer Information Section -->
+              <section>
+                <div class="container mt-0">
+                  <form id="customerInfoForm" class="mb-3 form form-floating">
+                    <!-- Customer Info Accordion -->
+                    <div class="accordion mb-3" id="customerInfoAccordion">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne"
+                            aria-expanded="false"
+                            aria-controls="collapseOne"
+                          >
+                            Customer Info
+                          </button>
+                        </h2>
+                        <div
+                          id="collapseOne"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="headingOne"
+                          data-bs-parent="#customerInfoAccordion"
+                        >
+                          <div class="accordion-body">
+                            <!-- Place your input fields here -->
+                            <div class="row mb-3">
+                              <div class="form-floating col gx-1">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="customerName"
+                                  placeholder="Customer Name"
+                                  name="customerName"
+                                />
+                                <label for="floatingInput">Customer Name</label>
+                              </div>
+                              <div class="form-floating col gx-1">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  id="accountNumber"
+                                  placeholder="Account Number"
+                                  name="accountNumber"
+                                />
+                                <label for="floatingInput"
+                                  >Account Number</label
+                                >
+                              </div>
+                            </div>
+                            <!-- Add more fields as needed -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Add more accordion items if needed -->
+                    </div>
+                    <div class="accordion mb-3" id="accordionExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapsetwo"
+                            aria-expanded="false"
+                            aria-controls="collapsetwo"
+                          >
+                            Premise Info
+                          </button>
+                        </h2>
+                        <div
+                          id="collapsetwo"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="headingOne"
+                          data-bs-parent="#accordionExample"
+                        >
+                          <div class="accordion-body">
+                            <div class="row mb-3">
+                              <div class="form-floating col-6 gx-1">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  id="premiseAddress"
+                                  placeholder="Premise Address"
+                                  name="premiseAddress"
+                                />
+                                <label for="floatingInput"
+                                  >Premise Address</label
+                                >
+                              </div>
+                              <div class="form-floating col-6 gx-1">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  id="premiseCity"
+                                  placeholder="Premise City"
+                                  name="premiseCity"
+                                />
+                                <label for="floatingInput">Premise City</label>
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                              <div class="form-floating col-6 gx-1">
+                                <select
+                                  name="premiseState"
+                                  id="stateSelect"
+                                  class="form-select form-control-sm"
+                                >
+                                  <option value="CA">California</option>
+                                  <option value="AL">Alabama</option>
+                                  <option value="AK">Alaska</option>
+                                  <option value="AZ">Arizona</option>
+                                  <!-- Add other states here -->
+                                </select>
+                                <label for="floatingInput">Premise State</label>
+                              </div>
+                              <div class="form-floating col-6 gx-1">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  id="premiseZip"
+                                  placeholder="Premise Zip Code"
+                                  name="premiseZip"
+                                />
+                                <label for="floatingInput"
+                                  >Premise Zip Code</label
+                                >
+                              </div>
+                              <div class="form-floating mt-3 col-4 gx-1">
+                                <input
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  id="meterNumber"
+                                  placeholder="Meter Number"
+                                  name="meterNumber"
+                                />
+                                <label for="floatingInput">Meter Number</label>
+                                <!-- Checkbox to indicate if mailing address is same as premise address -->
+                                <div class="form-check form-switch mt-3 mb-3">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="sameAsPremiseCheckbox"
+                                    checked
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="sameAsPremiseCheckbox"
+                                  >
+                                    Mailing Address same as Premise Address
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Mailing Address Section (Initially Hidden) -->
+                            <div
+                              id="mailingAddressSection"
+                              style="display: none"
+                            >
+                              <div class="row mb-3">
+                                <div class="form-floating col-6 gx-1">
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm mailing-address-field"
+                                    id="mailingAddress"
+                                    placeholder="Mailing Address"
+                                    name="mailingAddress"
+                                  />
+                                  <label for="floatingInput"
+                                    >Mailing Address</label
+                                  >
+                                </div>
+                                <div class="form-floating col-6 gx-1">
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm mailing-address-field"
+                                    id="mailingCity"
+                                    placeholder="Mailing City"
+                                    name="mailingCity"
+                                  />
+                                  <label for="floatingInput"
+                                    >Mailing City</label
+                                  >
+                                </div>
+                              </div>
+                              <div class="row mb-3">
+                                <div class="form-floating col-6 gx-1">
+                                  <select
+                                    name="mailingState"
+                                    id="mailingStateSelect"
+                                    class="form-select form-control-sm mailing-address-field"
+                                  >
+                                    <option value="CA">California</option>
+                                    <!-- Add other states here -->
+                                  </select>
+                                  <label for="floatingInput"
+                                    >Mailing State</label
+                                  >
+                                </div>
+                                <div class="form-floating col-6 gx-1">
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm mailing-address-field"
+                                    id="mailingZip"
+                                    placeholder="Mailing Zip Code"
+                                    name="mailingZip"
+                                  />
+                                  <label for="floatingInput"
+                                    >Mailing Zip Code</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Add more accordion items if needed -->
+                    </div>
+                    <div class="mt-3 mb-3">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <!-- This column will take up 25% of the container width -->
+                          <select
+                            class="form-select pl-0"
+                            aria-label="Default select example"
+                          >
+                            <option selected>Error Type</option>
+                            <option value="1">SIO Prolonged Estimation</option>
+                            <option value="2">Fatal Meter Error</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- ... Existing customer info fields ... -->
+                    <button type="submit" class="btn btn-success">
+                      Save Customer Info
+                    </button>
+                    <!-- Button to open the off-canvas form -->
+                    <button
+                      class="btn btn-secondary"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#offCanvasFormContainer"
+                      aria-controls="offCanvasFormContainer"
+                    >
+                      Meter Removal Info
+                    </button>
+                  </form>
+                </div>
+              </section>
+              <!-- Bill Segment Section -->
+              <section>
+                <div class="container mt-4">
+                  <form id="billSegmentForm" class="mb-3">
+                    <!-- Existing Bill Segment Fields -->
+                    <div class="container" id="billSegmentsContainer"></div>
+                    <!-- ... Existing bill segment fields ... -->
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="addSegmentButton"
+                    >
+                      Add Bill Segment
+                    </button>
+                    <button
+                      type="submit"
+                      id="calculateButton"
+                      class="btn btn-primary"
+                    >
+                      Calculate Usage
+                    </button>
+                  </form>
+                  <div id="calculatedSegmentInfoContainer"></div>
+                </div>
+              </section>
+              <!-- Additional Data Section (Off-canvas Data) -->
+              <section>
+                <div
+                  class="offcanvas offcanvas-end"
+                  id="offCanvasFormContainer"
+                  tabindex="-1"
+                  data-bs-backdrop="static"
+                  aria-labelledby="offCanvasDataLabel"
+                >
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offCanvasDataLabel">
+                      Additional Information
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close text-reset"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <form id="offCanvasForm">
+                      <!-- Off-canvas form fields -->
+                      <div class="mb-3">
+                        <label for="removalDate" class="form-label"
+                          >Meter Removal Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="removalDate"
+                          name="removalDate"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="removalTime" class="form-label"
+                          >Meter Removal Time</label
+                        >
+                        <input
+                          type="time"
+                          class="form-control"
+                          id="removalTime"
+                          name="removalTime"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="errorDate" class="form-label"
+                          >Error Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="errorDate"
+                          name="errorDate"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="estimationDate" class="form-label"
+                          >Estimation Start Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="estimationDate"
+                          name="estimationDate"
+                        />
+                      </div>
+                      <!-- ... Other off-canvas fields ... -->
+                      <button type="submit" class="btn btn-primary">
+                        Submit Additional Data
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="toggleSideBtn"
+                      >
+                        Move Window
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </section>
+              <!-- Display Areas for Submitted Data and Results -->
+              <div id="submittedDataDisplay" class="mt-3"></div>
+              <div id="results" class="mt-3"></div>
+              <div id="billSegmentTablesContainer" class="container mt-4">
+                <!-- Rebilled Information Table -->
+                <h1 class="text-center">Rebilled Segments</h1>
+              </div>
+              <div class="container">
+                <table
+                  class="table equal-width table-bordered mt-3"
+                  id="billSegmentTablesContainer"
+                >
+                  <colgroup>
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                  </colgroup>
+                  <tbody>
+                    <!-- Add a row for the running total with a unique ID -->
+                    <tr id="runningTotalRow">
+                      <td><span>Net Difference</span></td>
+                      <td>
+                        <span id="totalDifferenceBilled">$0.00</span>
+                      </td>
+                      <td>
+                        <span id="totalDifferenceUsage">0 kWh</span>
+                      </td>
+                      <td><span></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Button to Generate Document -->
+              <div class="container">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  id="generateDoc"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title="Submit data and generate word document."
+                >
+                  Generate Customer Letter
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="resetButton"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-title="Resets all form data"
+                >
+                  Reset Form
+                </button>
+              </div>
+              <!-- File Upload for Document Template -->
+              <div
+                class="input-group mb-3 mt-3 container"
+                data-bs-theme="light"
+              >
+                <label class="input-group-text" for="inputGroupFile01"
+                  >Letter Template</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="templateUpload"
+                  accept=".docx"
+                />
+              </div>
+              <!-- Remember Template Checkbox -->
+              <div class="container">
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="keepTemplate"
+                    name="keepTemplate"
+                  />
+                  <label
+                    class="form-check-label mb-5"
+                    for="flexSwitchCheckDefault"
+                    >Remember Template</label
+                  >
+                </div>
+                <!--For RESET BUTTTON-->
+                <div class="mt-5"></div>
+              </div>
+            </div>
+            <div
+              class="mb-5"
+              id="customerContactSummarySection"
+              style="display: none"
+            >
+              <h2>Customer Contact Summary</h2>
+              <div id="customerContactSummary"></div>
+              <div id="customerContactCalculations"></div>
+              <button
+                type="button"
+                class="btn btn-dark"
+                id="copyToClipboardBtn"
+              >
+                Copy to Clipboard
+              </button>
+            </div>
+          </section>
+          <!-- Config Section-->
+          <section id="config-section">
+            <div id="configSection" style="display: none">
+              <div class="container">
+                <form id="configForm">
+                  <div class="form-group">
+                    <label for="customerServiceRepName">CSR Name:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="customerServiceRepName"
+                      name="customerServiceRepName"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    class="mt-4 btn btn-primary"
+                    onclick="saveConfig()"
+                  >
+                    Save Config
+                  </button>
+                </form>
+                <!-- Alert Div for Currently Loaded CSR Name -->
+                <div
+                  id="currentlyLoadedAlert"
+                  class="alert alert-success"
+                  role="alert"
+                  style="display: none"
+                >
+                  Currently Loaded CSR: <span id="currentlyLoadedCSR"></span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascript links and references -->
+    <script src="js/formHandlers.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/documentGenerator.js"></script>
+    <script src="js/calculationLogic.js"></script>
+    <script src="js/lookAndFeel.js"></script>
+    <script src="js/customerContact.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

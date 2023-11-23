@@ -1,5 +1,5 @@
 document.getElementById("toggleSideBtn").addEventListener("click", function () {
-  var offcanvasElement = document.getElementById("offCanvasData");
+  var offcanvasElement = document.getElementById("offCanvasFormContainer");
 
   // Check current placement and toggle
   if (offcanvasElement.classList.contains("offcanvas-end")) {

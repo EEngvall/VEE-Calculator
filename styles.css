@@ -1,0 +1,57 @@
+/* Apply the style only to tables with the "equal-width" class */
+table.equal-width {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Set equal width for each column */
+table.equal-width th,
+table.equal-width td {
+  width: 25%; /* Adjust as needed */
+}
+
+#leftSection {
+  width: 200px; /* Set a specific width for the left section */
+}
+#taskList li {
+  list-style-type: none;
+  margin: 5px 0; /* Add margin for spacing between items */
+  display: block;
+  width: fit-content; /* Set the width to fit the content */
+  height: 30px; /* Set the desired fixed height */
+}
+
+#taskList {
+  text-align: center; /* Center the list items */
+}
+
+#tasklist ul {
+  display: block;
+}
+
+.task-button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.task-incomplete {
+  color: #fff;
+  background-color: #fa0800; /* Bootstrap's red */
+  border-color: #fa0800;
+}
+
+.task-complete {
+  color: #fff;
+  background-color: #007500; /* Bootstrap's green */
+  border-color: #007500;
+}

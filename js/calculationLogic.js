@@ -11,6 +11,9 @@ function calculateBillSegmentData(billSegments) {
   let calculations = [];
   let totalOverallConsumption = 0;
 
+  // Clear the previous content in the usageInfoContainer
+  clearUsageInfo();
+
   billSegments.forEach((segment, index) => {
     // Constructing the usage field names based on the segment index
     let usage2020FieldName = `usage2020-${index + 1}`;
@@ -27,7 +30,7 @@ function calculateBillSegmentData(billSegments) {
       .map(Number);
 
     // Calculate average usage
-    let averageUsage = calculateAverageUsage(usages);
+    let averageUsage = Math.round(calculateAverageUsage(usages));
 
     // Calculate the number of days in the billing period
     let days = calculateDaysInBillingPeriod(
@@ -50,15 +53,53 @@ function calculateBillSegmentData(billSegments) {
       totalConsumption: totalConsumption,
       days: days,
     });
+
+    appendUsageInfo(
+      index + 1,
+      segment[`startDate${index + 1}`],
+      segment[`endDate${index + 1}`],
+      averageUsage,
+      totalConsumption,
+      days
+    );
   });
-
-  console.log("Segment Calculations:", calculations);
-  console.log("Total Overall Consumption:", totalOverallConsumption);
-
+  // console.log(calculations);
+  // Update the customerContactSummary div
+  updateCustomerContactSummary(calculations);
   return {
     segmentCalculations: calculations,
     totalOverallConsumption: totalOverallConsumption,
   };
+}
+
+function clearUsageInfo() {
+  // Clear the content of the usageInfoContainer
+  document.getElementById("calculatedSegmentInfoContainer").innerHTML = "";
+}
+function appendUsageInfo(
+  index,
+  startDate,
+  endDate,
+  averageUsage,
+  totalConsumption,
+  days
+) {
+  // Create a div element for each segment's usage information
+  let usageInfoDiv = document.createElement("div");
+
+  // Format the information and set it as the innerHTML of the div
+  usageInfoDiv.innerHTML = `
+      <p>${formatDate(startDate)} - ${formatDate(
+    endDate
+  )} (${days} Days) Average Usage: ${averageUsage.toFixed(
+    0
+  )} kWh/Day, Total Consumption: ${totalConsumption.toFixed(0)} kWh</p>
+  `;
+
+  // Append the div to the usageInfoContainer
+  document
+    .getElementById("calculatedSegmentInfoContainer")
+    .appendChild(usageInfoDiv);
 }
 
 function calculateDaysInBillingPeriod(startDate, endDate) {

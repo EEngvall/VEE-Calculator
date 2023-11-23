@@ -5,8 +5,49 @@ let globalDataObject = {
   offCanvasData: {},
 };
 
+function saveConfig() {
+  // Get the CSR name from the input field
+  const csrName = document.getElementById("customerServiceRepName").value;
+
+  // Save the CSR name to the globalDataObject
+  globalDataObject.customerServiceRepName = csrName;
+
+  // Save the CSR name to a cookie
+  document.cookie = `csrName=${encodeURIComponent(
+    csrName
+  )}; expires=Thu, 31 Dec 2099 23:59:59 GMT; path=/`;
+
+  // Update the currently loaded CSR name in the alert div
+  document.getElementById("currentlyLoadedCSR").textContent = csrName;
+
+  // Show the alert div
+  document.getElementById("currentlyLoadedAlert").style.display = "block";
+  // Log the saved CSR name to the console (for demonstration purposes)
+  console.log("Saved CSR name:", csrName);
+}
+
+// Function to retrieve the CSR name from the cookie on page load
+function retrieveSavedCSRName() {
+  const cookieValue = document.cookie
+    .split(";")
+    .find((cookie) => cookie.trim().startsWith("csrName="));
+  if (cookieValue) {
+    const csrName = decodeURIComponent(cookieValue.split("=")[1]);
+    // Set the CSR name in the input field
+    document.getElementById("customerServiceRepName").value = csrName;
+    globalDataObject.customerServiceRepName = csrName;
+    // Update the currently loaded CSR name in the alert div
+    document.getElementById("currentlyLoadedCSR").textContent = csrName;
+
+    // Show the alert div
+    document.getElementById("currentlyLoadedAlert").style.display = "block";
+  }
+}
+
+// Call the function to retrieve the saved CSR name on page load
+window.addEventListener("load", retrieveSavedCSRName);
+
 // Handle Customer and Premise Info Form Submission
-//console.log("Script loaded and executing");
 
 function handleCustomerAndPremiseInfoFormSubmit(event) {
   event.preventDefault();
@@ -18,8 +59,11 @@ function handleCustomerAndPremiseInfoFormSubmit(event) {
     customerAndPremiseInfo[key] = value;
   }
 
-  // Store customer and premise info in global object
+  // Store customer and premise info in the global object
   globalDataObject.customerAndPremiseInfo = customerAndPremiseInfo;
+  updateListItemStyle("task1", true);
+  customerInfoSubmitted = true;
+
   console.log(customerAndPremiseInfo);
 }
 
@@ -37,7 +81,7 @@ function handleBillSegmentData() {
     billSegmentsData.push(segmentData);
   });
 
-  console.log("Bill Segments Data:", billSegmentsData);
+  // console.log("Bill Segments Data:", billSegmentsData);
   globalDataObject.billSegments = billSegmentsData;
 
   return billSegmentsData; // Add this line to return the collected data
@@ -67,6 +111,9 @@ function handleOffCanvasFormSubmit(event) {
   } else {
     console.warn("Off-canvas element not found");
   }
+
+  updateListItemStyle("task2", true);
+  meterRemovalSubmitted = true;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -156,6 +203,21 @@ function submitAllForms() {
 
   performCalculationsAfterFormSubmission();
   return Promise.all(submissionPromises);
+}
+
+// Function to update list item style based on form submission
+function updateListItemStyle(taskId, isSuccess) {
+  const listItem = document.getElementById(taskId);
+
+  if (listItem) {
+    if (isSuccess) {
+      listItem.classList.remove("task-incomplete");
+      listItem.classList.add("task-complete");
+    } else {
+      listItem.classList.remove("task-complete");
+      listItem.classList.add("task-incomplete");
+    }
+  }
 }
 
 // Example usage:
