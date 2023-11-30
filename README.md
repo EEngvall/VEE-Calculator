@@ -87,17 +87,19 @@ Export and import data for record-keeping and future use.
 ## File Handling
 
 Export Data:
-Click the "Export" button to save the current form data as a JSON file.
+
+-Click the "Export" button to save the current form data as a JSON file.
 Import Data:
-Use the "Import" button to load previously exported data into the application.
+
+-Use the "Import" button to load previously exported data into the application.
 
 # Contributing
 
 Contributions are welcome! If you'd like to contribute to the project, please follow these steps:
 
-Fork the repository.
-Create a new branch for your feature or bug fix.
-Commit your changes.
-Push the branch to your fork.
-Open a pull request.
+-Fork the repository.
+-Create a new branch for your feature or bug fix.
+-Commit your changes.
+-Push the branch to your fork.
+-Open a pull request.
 
