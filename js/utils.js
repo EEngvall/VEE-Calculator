@@ -19,13 +19,20 @@ function formatDate(dateString, timeZone = "America/Los_Angeles") {
   );
 }
 
-function formatDateShort(dateString) {
-  const date = new Date(dateString);
-  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based
-  const day = date.getDate().toString().padStart(2, "0");
-  const year = date.getFullYear().toString().slice(-2);
+function formatDateShort(dateString, timeZone = "America/Los_Angeles") {
+  if (!dateString) return "";
 
-  return `${month}/${day}/${year}`;
+  // Create a Date object with the specified time zone
+  const dateObj = new Date(dateString + "T00:00:00");
+  const options = {
+    month: "2-digit",
+    day: "2-digit",
+    year: "2-digit",
+    timeZone,
+  };
+  let formattedDate = dateObj.toLocaleDateString("en-US", options);
+
+  return formattedDate;
 }
 
 function resetApplication() {
@@ -59,6 +66,7 @@ function resetApplication() {
   );
   document.getElementById("totalDifferenceUsage").textContent =
     totalDifferenceUsage.toFixed(2) + " kWh";
+  document.getElementById("totalOverallConsumptionContainer").textContent = "";
 
   // Clear bill segments
   const billSegmentsContainer = document.getElementById(
@@ -97,10 +105,10 @@ function setValueIfExists(elementId, value) {
 
 function showSection(section) {
   if (section === "home") {
-    document.getElementById("homeSection").style.display = "block";
+    document.getElementById("home-screen").style.display = "block";
     document.getElementById("configSection").style.display = "none";
   } else if (section === "config") {
-    document.getElementById("homeSection").style.display = "none";
+    document.getElementById("home-screen").style.display = "none";
     document.getElementById("configSection").style.display = "block";
   }
 }

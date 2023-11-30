@@ -382,10 +382,15 @@
                           <select
                             class="form-select pl-0"
                             aria-label="Default select example"
+                            id="errorTypeSelector"
                           >
                             <option selected>Error Type</option>
-                            <option value="1">SIO Prolonged Estimation</option>
-                            <option value="2">Fatal Meter Error</option>
+                            <option value="SIO Prolonged Estimation">
+                              SIO Prolonged Estimation
+                            </option>
+                            <option value="Fatal Meter Error">
+                              Fatal Meter Error
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -430,6 +435,7 @@
                     </button>
                   </form>
                   <div id="calculatedSegmentInfoContainer"></div>
+                  <div id="totalOverallConsumptionContainer"></div>
                 </div>
               </section>
               <!-- Additional Data Section (Off-canvas Data) -->
@@ -616,10 +622,52 @@
               <button
                 type="button"
                 class="btn btn-dark"
+                data-bs-toggle="modal"
+                data-bs-target="#copyModal"
                 id="copyToClipboardBtn"
               >
                 Copy to Clipboard
               </button>
+
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="copyModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1
+                        class="text-center modal-title fs-5"
+                        id="exampleModalLabel"
+                      >
+                        Copy Success
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body text-center">
+                      Customer Contact Saved to Clipboard!
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
           <!-- Config Section-->
@@ -653,6 +701,16 @@
                 >
                   Currently Loaded CSR: <span id="currentlyLoadedCSR"></span>
                 </div>
+                <div>
+                  <input type="file" id="fileInput" style="display: none" />
+                  <button class="btn btn-dark" onclick="openFileExplorer()">
+                    Import Data
+                  </button>
+
+                  <button id="saveJSON" type="button" class="btn btn-dark">
+                    Save JSON
+                  </button>
+                </div>
               </div>
             </div>
           </section>
@@ -662,6 +720,7 @@
 
     <!-- Javascript links and references -->
     <script src="js/formHandlers.js"></script>
+    <script src="js/JSONhandler.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/documentGenerator.js"></script>
     <script src="js/calculationLogic.js"></script>

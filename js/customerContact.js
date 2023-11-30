@@ -2,22 +2,25 @@ function updateCustomerContactSummary(calculations) {
   let differences = getTotalDifferences();
   const summaryContainer = document.getElementById("customerContactSummary");
   summaryContainer.innerHTML = ""; // Clear previous content
-
   const summarySection = document.getElementById(
     "customerContactSummarySection"
   );
+  const errorType = document.getElementById("errorTypeSelector").value;
 
   // Create a paragraph for the initial content
   const initialContentParagraph = document.createElement("p");
   initialContentParagraph.textContent = `Meter ${
     globalDataObject.customerAndPremiseInfo.meterNumber
-  } had SIO Prolonged Estimation activity occur on ${formatDateShort(
+  } had ${errorType} activity occur on ${formatDateShort(
     globalDataObject.offCanvasData.errorDate
-  )} showing estimation 
-  start ${formatDateShort(
+  )} showing estimation start ${formatDateShort(
     globalDataObject.offCanvasData.estimationDate
-  )} until meter was replaced on 01/00.  Re estimated usage for   
-  bill segment(s) using data from prior years during the same billing periods and usage on new meter as follows below:`;
+  )} until meter was replaced on ${formatDateShort(
+    globalDataObject.offCanvasData.removalDate
+  )}. 
+  Re estimated usage for ${getBillingPeriodText(
+    globalDataObject.billSegments
+  )} bill segment(s) using data from prior years during the same billing periods and usage on new meter as follows below:`;
 
   summaryContainer.appendChild(initialContentParagraph);
 
@@ -65,7 +68,6 @@ function updateCustomerContactSummary(calculations) {
   const copyBtn = document.getElementById("copyToClipboardBtn");
   copyBtn.addEventListener("click", () => {
     copyTextToClipboard(summaryContainer.textContent);
-    alert("Text copied to clipboard!");
   });
 }
 
@@ -73,8 +75,25 @@ function updateCustomerContactSummary(calculations) {
 function copyTextToClipboard(text) {
   const textArea = document.createElement("textarea");
   textArea.value = text;
+  textArea.style.position = "fixed"; // Make it invisible but still part of the layout
   document.body.appendChild(textArea);
+  textArea.focus();
   textArea.select();
   document.execCommand("copy");
   document.body.removeChild(textArea);
+}
+
+// Function to determine the billing period text
+function getBillingPeriodText(billSegments) {
+  if (billSegments.length === 1) {
+    // If there is only one bill segment, use its end date
+    return `${formatDateShort(billSegments[0].endDate1)}`;
+  } else {
+    // If there are multiple bill segments, use the range of end dates
+    const firstEndDate = formatDateShort(billSegments[0].endDate1);
+    const lastEndDate = formatDateShort(
+      billSegments[billSegments.length - 1][`endDate${billSegments.length}`]
+    );
+    return `${firstEndDate} - ${lastEndDate}`;
+  }
 }

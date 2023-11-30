@@ -225,6 +225,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event listener for Customer Information Form
 
   document
+    .getElementById("fileInput")
+    .addEventListener("change", handleFileSelect);
+
+  document
     .getElementById("customerInfoForm")
     .addEventListener("submit", (event) => {
       // Prevent the default form submission behavior
@@ -299,6 +303,11 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       taskValidationModal.show();
     }
+  });
+
+  document.getElementById("saveJSON").addEventListener("click", (event) => {
+    event.preventDefault();
+    saveFormDataToJson();
   });
 
   document

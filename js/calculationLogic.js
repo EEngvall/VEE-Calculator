@@ -60,7 +60,8 @@ function calculateBillSegmentData(billSegments) {
       segment[`endDate${index + 1}`],
       averageUsage,
       totalConsumption,
-      days
+      days,
+      totalOverallConsumption
     );
   });
   // console.log(calculations);
@@ -82,7 +83,8 @@ function appendUsageInfo(
   endDate,
   averageUsage,
   totalConsumption,
-  days
+  days,
+  totalOverallConsumption
 ) {
   // Create a div element for each segment's usage information
   let usageInfoDiv = document.createElement("div");
@@ -100,6 +102,19 @@ function appendUsageInfo(
   document
     .getElementById("calculatedSegmentInfoContainer")
     .appendChild(usageInfoDiv);
+
+  // Add total overall consumption to the bottom of the container
+  let totalOverallDiv = document.createElement("div");
+  totalOverallDiv.innerHTML = `<p>Total Overall Consumption: ${totalOverallConsumption.toFixed(
+    0
+  )} kWh</p>`;
+  // Clear existing content and add total overall consumption to the new container
+  let totalOverallContainer = document.getElementById(
+    "totalOverallConsumptionContainer"
+  );
+  totalOverallContainer.innerHTML = `<p>Total Overall Consumption: ${totalOverallConsumption.toFixed(
+    0
+  )} kWh</p>`;
 }
 
 function calculateDaysInBillingPeriod(startDate, endDate) {
