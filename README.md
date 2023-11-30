@@ -79,10 +79,10 @@ yarn start
 
 ## Usage
 
-Fill in the customer and premise information.
-Add bill segments with corresponding start/end dates and usage data.
-Recalculate bills to generate corrected values.
-Export and import data for record-keeping and future use.
+- Fill in the customer and premise information.
+- Add bill segments with corresponding start/end dates and usage data.
+- Recalculate bills to generate corrected values.
+- Export and import data for record-keeping and future use.
 
 ## File Handling
 
