@@ -15,7 +15,7 @@ function formatDate(dateString, timeZone = "America/Los_Angeles") {
 
   return formattedDate.replace(
     new RegExp(" " + day + " "),
-    ` ${day}${suffix}, `
+    ` ${day}${suffix}, `,
   );
 }
 
@@ -62,7 +62,7 @@ function resetApplication() {
   totalDifferenceBilled = 0;
   totalDifferenceUsage = 0;
   document.getElementById("totalDifferenceBilled").textContent = formatCurrency(
-    totalDifferenceBilled
+    totalDifferenceBilled,
   );
   document.getElementById("totalDifferenceUsage").textContent =
     totalDifferenceUsage.toFixed(2) + " kWh";
@@ -70,7 +70,7 @@ function resetApplication() {
 
   // Clear bill segments
   const billSegmentsContainer = document.getElementById(
-    "billSegmentsContainer"
+    "billSegmentsContainer",
   );
   while (billSegmentsContainer.firstChild) {
     billSegmentsContainer.firstChild.remove();
@@ -78,7 +78,7 @@ function resetApplication() {
 
   // Clear generated tables
   const billSegmentTablesContainer = document.getElementById(
-    "billSegmentTablesContainer"
+    "billSegmentTablesContainer",
   );
   while (billSegmentTablesContainer.firstChild) {
     billSegmentTablesContainer.firstChild.remove();
@@ -92,6 +92,7 @@ function resetApplication() {
   customerInfoSubmitted = false;
   meterRemovalSubmitted = false;
 
+  resetTotalDifferences();
   // Add the first bill segment on page load
   addBillSegment();
 }
@@ -118,11 +119,6 @@ function formatCurrency(value) {
   let absValue = Math.abs(value).toFixed(2);
   return sign + "$" + absValue;
 }
-// Attach this function to the reset button's event listener
-document
-  .getElementById("resetButton")
-  .addEventListener("click", resetApplication);
-
 // Attach this function to the reset button's event listener
 document
   .getElementById("resetButton")

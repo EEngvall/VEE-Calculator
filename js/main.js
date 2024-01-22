@@ -2,6 +2,8 @@
 let allFormsSubmitted = false;
 let customerInfoSubmitted = false;
 let meterRemovalSubmitted = false;
+let totalDifferenceBilled = 0; // Declare here as a global variable
+let totalDifferenceUsage = 0; // Declare here as a global variable
 
 // Function to check and update the status of allFormsSubmitted
 function updateAllFormsSubmittedStatus() {
@@ -13,23 +15,19 @@ function updateAllFormsSubmittedStatus() {
 }
 
 const tooltipTriggerList = document.querySelectorAll(
-  '[data-bs-toggle="tooltip"]'
+  '[data-bs-toggle="tooltip"]',
 );
 const tooltipList = [...tooltipTriggerList].map(
-  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl),
 );
 
 function addBillSegment() {
-  // At the beginning of your script
-  let totalDifferenceBilled = 0;
-  let totalDifferenceUsage = 0;
-
   const segmentIndex = document.querySelectorAll(".bill-segment").length + 1;
   const billSegmentsContainer = document.getElementById(
-    "billSegmentsContainer"
+    "billSegmentsContainer",
   );
   const billSegmentTablesContainer = document.getElementById(
-    "billSegmentTablesContainer"
+    "billSegmentTablesContainer",
   );
 
   let segmentDiv = document.createElement("div");
@@ -97,7 +95,7 @@ function addBillSegment() {
 
   // Update table header with placeholder dates
   const segmentDateHeader = document.getElementById(
-    `segmentDateHeader${segmentIndex}`
+    `segmentDateHeader${segmentIndex}`,
   );
   segmentDateHeader.textContent = `Start Date - End Date`;
 
@@ -106,7 +104,7 @@ function addBillSegment() {
     const startDateInput = segmentDiv.querySelector(".start-date");
     const endDateInput = segmentDiv.querySelector(".end-date");
     segmentDateHeader.textContent = `${formatDate(
-      startDateInput.value
+      startDateInput.value,
     )} - ${formatDate(endDateInput.value)}`;
   }
   function calculateDifferences() {
@@ -115,12 +113,12 @@ function addBillSegment() {
       const originalBilled =
         parseFloat(
           document.querySelector(`input[name="originalBilled${segmentIndex}"]`)
-            .value
+            .value,
         ) || 0;
       const correctedBilled =
         parseFloat(
           document.querySelector(`input[name="correctedBilled${segmentIndex}"]`)
-            .value
+            .value,
         ) || 0;
       const differenceBilled = correctedBilled - originalBilled;
       document.querySelector(`#differenceBilled${segmentIndex}`).textContent =
@@ -129,12 +127,12 @@ function addBillSegment() {
       const originalUsage =
         parseFloat(
           document.querySelector(`input[name="originalUsage${segmentIndex}"]`)
-            .value
+            .value,
         ) || 0;
       const correctedUsage =
         parseFloat(
           document.querySelector(`input[name="correctedUsage${segmentIndex}"]`)
-            .value
+            .value,
         ) || 0;
       const differenceUsage = correctedUsage - originalUsage;
       document.querySelector(`#differenceUsage${segmentIndex}`).textContent =
@@ -184,7 +182,7 @@ function addBillSegment() {
 
   rebilledTable
     .querySelectorAll(
-      `input[name="originalBilled${segmentIndex}"], input[name="correctedBilled${segmentIndex}"]`
+      `input[name="originalBilled${segmentIndex}"], input[name="correctedBilled${segmentIndex}"]`,
     )
     .forEach((input) => {
       input.addEventListener("input", calculateDifferences);
@@ -192,7 +190,7 @@ function addBillSegment() {
 
   rebilledTable
     .querySelectorAll(
-      `input[name="originalUsage${segmentIndex}"], input[name="correctedUsage${segmentIndex}"]`
+      `input[name="originalUsage${segmentIndex}"], input[name="correctedUsage${segmentIndex}"]`,
     )
     .forEach((input) => {
       input.addEventListener("input", calculateDifferences);
@@ -216,9 +214,21 @@ function removeBillSegment(segmentId) {
 }
 function getTotalDifferences() {
   return {
-    totalDifferenceBilled: totalDifferenceBilled.textContent,
-    totalDifferenceUsage: totalDifferenceUsage.textContent,
+    totalDifferenceBilled: totalDifferenceBilled,
+    totalDifferenceUsage: totalDifferenceUsage,
   };
+}
+
+function resetTotalDifferences() {
+  totalDifferenceBilled = 0;
+  totalDifferenceUsage = 0;
+
+  // Update the spans displaying the running totals
+  document.getElementById("totalDifferenceBilled").textContent = formatCurrency(
+    totalDifferenceBilled,
+  );
+  document.getElementById("totalDifferenceUsage").textContent =
+    totalDifferenceUsage.toFixed(2) + " kWh";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -236,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Check if all fields are filled
       const allFieldsFilled = Array.from(
-        document.querySelectorAll("#customerInfoForm input")
+        document.querySelectorAll("#customerInfoForm input"),
       ).every((input) => input.value.trim() !== "");
 
       if (allFieldsFilled) {
@@ -245,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         // If any field is not filled, trigger the modal
         const fieldValidationModal = new bootstrap.Modal(
-          document.getElementById("fieldValidationModal")
+          document.getElementById("fieldValidationModal"),
         );
         fieldValidationModal.show();
       }
@@ -259,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Check if start and end dates are filled in for all segments
       const allDatesFilled = Array.from(
-        document.querySelectorAll(".start-date, .end-date")
+        document.querySelectorAll(".start-date, .end-date"),
       ).every((dateInput) => dateInput.value.trim() !== "");
 
       if (allDatesFilled) {
@@ -269,12 +279,12 @@ document.addEventListener("DOMContentLoaded", function () {
           let combinedFormData = combineAllFormData();
           const calculationResults = calculateBillSegmentData(billSegmentsData);
           // Continue with any additional logic or logging if needed
-          // console.log("Calculation Results:", calculationResults);
+          console.log("Calculation Results:", calculationResults);
         });
       } else {
         // Display an alert if start and end dates are not filled in for all segments
         const fieldValidationModal = new bootstrap.Modal(
-          document.getElementById("fieldValidationModal")
+          document.getElementById("fieldValidationModal"),
         );
         fieldValidationModal.show();
       }
@@ -299,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } else {
       const taskValidationModal = new bootstrap.Modal(
-        document.getElementById("taskValidationModal")
+        document.getElementById("taskValidationModal"),
       );
       taskValidationModal.show();
     }

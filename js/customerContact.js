@@ -1,5 +1,6 @@
 function updateCustomerContactSummary(calculations) {
   let differences = getTotalDifferences();
+  console.log(getTotalDifferences());
   const summaryContainer = document.getElementById("customerContactSummary");
   summaryContainer.innerHTML = ""; // Clear previous content
   const summarySection = document.getElementById(
@@ -53,11 +54,17 @@ function updateCustomerContactSummary(calculations) {
 
   // Add overall total consumption to the summary
   const overallSummary = document.createElement("p");
-  overallSummary.textContent = `Total Overall Consumption: ${totalRebillConsumption.toFixed(
-    0,
-  )} kWh`;
 
-  overallSummary.textContent = `Total net additional bill or credit ${differences.totalDifferenceBilled} (${differences.totalDifferenceUsage}). Sent Letter to Customer`;
+  // Assuming totalRebillConsumption is already formatted with two decimal places
+  overallSummary.textContent = `Total Overall Consumption: ${totalRebillConsumption} kWh`;
+
+  // Format totalDifferenceBilled and totalDifferenceUsage with two decimal places
+  const formattedTotalDifferenceBilled =
+    differences.totalDifferenceBilled.toFixed(2);
+  const formattedTotalDifferenceUsage =
+    differences.totalDifferenceUsage.toFixed(0);
+
+  overallSummary.textContent = `Total net additional bill or credit $${formattedTotalDifferenceBilled} (${formattedTotalDifferenceUsage}kWh)`;
   summaryContainer.appendChild(overallSummary);
 
   // Display the summary section
