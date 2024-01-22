@@ -3,7 +3,7 @@ function updateCustomerContactSummary(calculations) {
   const summaryContainer = document.getElementById("customerContactSummary");
   summaryContainer.innerHTML = ""; // Clear previous content
   const summarySection = document.getElementById(
-    "customerContactSummarySection"
+    "customerContactSummarySection",
   );
   const errorType = document.getElementById("errorTypeSelector").value;
 
@@ -12,14 +12,14 @@ function updateCustomerContactSummary(calculations) {
   initialContentParagraph.textContent = `Meter ${
     globalDataObject.customerAndPremiseInfo.meterNumber
   } had ${errorType} activity occur on ${formatDateShort(
-    globalDataObject.offCanvasData.errorDate
+    globalDataObject.offCanvasData.errorDate,
   )} showing estimation start ${formatDateShort(
-    globalDataObject.offCanvasData.estimationDate
+    globalDataObject.offCanvasData.estimationDate,
   )} until meter was replaced on ${formatDateShort(
-    globalDataObject.offCanvasData.removalDate
+    globalDataObject.offCanvasData.removalDate,
   )}. 
   Re estimated usage for ${getBillingPeriodText(
-    globalDataObject.billSegments
+    globalDataObject.billSegments,
   )} bill segment(s) using data from prior years during the same billing periods and usage on new meter as follows below:`;
 
   summaryContainer.appendChild(initialContentParagraph);
@@ -42,9 +42,9 @@ function updateCustomerContactSummary(calculations) {
     // Concatenate the values into the result string
     const segmentSummary = document.createElement("p");
     segmentSummary.textContent = `Segment ${index + 1}: ${formatDateShort(
-      startDate
+      startDate,
     )} - ${formatDateShort(
-      endDate
+      endDate,
     )} (Days: ${days}, Average Usage: ${averageUsage} kWh/Day, Total Consumption: ${totalConsumption} kWh)`;
 
     // Append the string element to the summaryContainer
@@ -54,10 +54,10 @@ function updateCustomerContactSummary(calculations) {
   // Add overall total consumption to the summary
   const overallSummary = document.createElement("p");
   overallSummary.textContent = `Total Overall Consumption: ${totalRebillConsumption.toFixed(
-    0
+    0,
   )} kWh`;
 
-  overallSummary.textContent = `Total net additional bill or credit ${differences.totalDifferenceBilled}`;
+  overallSummary.textContent = `Total net additional bill or credit ${differences.totalDifferenceBilled} (${differences.totalDifferenceUsage})`;
   summaryContainer.appendChild(overallSummary);
 
   // Display the summary section
@@ -92,7 +92,7 @@ function getBillingPeriodText(billSegments) {
     // If there are multiple bill segments, use the range of end dates
     const firstEndDate = formatDateShort(billSegments[0].endDate1);
     const lastEndDate = formatDateShort(
-      billSegments[billSegments.length - 1][`endDate${billSegments.length}`]
+      billSegments[billSegments.length - 1][`endDate${billSegments.length}`],
     );
     return `${firstEndDate} - ${lastEndDate}`;
   }
