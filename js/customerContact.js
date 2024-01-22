@@ -57,7 +57,7 @@ function updateCustomerContactSummary(calculations) {
     0,
   )} kWh`;
 
-  overallSummary.textContent = `Total net additional bill or credit ${differences.totalDifferenceBilled} (${differences.totalDifferenceUsage})`;
+  overallSummary.textContent = `Total net additional bill or credit ${differences.totalDifferenceBilled} (${differences.totalDifferenceUsage}). Sent Letter to Customer`;
   summaryContainer.appendChild(overallSummary);
 
   // Display the summary section
