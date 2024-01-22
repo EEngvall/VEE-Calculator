@@ -21,7 +21,7 @@ let templateToUse = selectTemplate(globalDataObject.billSegments.length);
 function generateDocument(
   combinedFormData,
   uploadedTemplate,
-  totalDifferences
+  totalDifferences,
 ) {
   // Load the Docxtemplater and PizZip libraries
   const PizZip = window.PizZip;
@@ -29,7 +29,7 @@ function generateDocument(
   // Initialize running totals
   let template = selectTemplate(
     combinedFormData.billSegments.length,
-    uploadedTemplate
+    uploadedTemplate,
   );
   let fetchPromise;
 
@@ -66,10 +66,13 @@ function generateDocument(
         premiseZip: combinedFormData.customerAndPremiseInfo.premiseZip,
         removalDate: formatDate(combinedFormData.offCanvasData.removalDate),
         meterNumber: combinedFormData.customerAndPremiseInfo.meterNumber,
-        netDifferenceBilled: totalDifferences.totalDifferenceBilled,
+        netDifferenceBilled: totalDifferences.totalDifferenceBilled.toFixed(2),
         netDifferenceUsage: totalDifferences.totalDifferenceUsage,
         newChargeDate: combinedFormData.customerAndPremiseInfo.newChargeDate,
         billingPeriod: getBillingPeriodText(combinedFormData.billSegments),
+        newChargeDate: formatDate(
+          combinedFormData.customerAndPremiseInfo.billDate,
+        ),
       };
 
       // Function to determine the billing period text
@@ -83,7 +86,7 @@ function generateDocument(
           const lastEndDate = formatDateShort(
             billSegments[billSegments.length - 1][
               `endDate${billSegments.length}`
-            ]
+            ],
           );
           return `${firstEndDate} - ${lastEndDate}`;
         }
@@ -95,32 +98,32 @@ function generateDocument(
         // Log the formatted dates to the console
         console.log(
           `Formatted Start Date ${index + 1}:`,
-          formatDate(segment[`startDate${index + 1}`])
+          formatDate(segment[`startDate${index + 1}`]),
         );
         console.log(
           `Formatted End Date ${index + 1}:`,
-          formatDate(segment[`endDate${index + 1}`])
+          formatDate(segment[`endDate${index + 1}`]),
         );
 
         // Use backticks (`) for string interpolation
         docData[`startDate${index + 1}`] = formatDateShort(
-          segment[`startDate${index + 1}`]
+          segment[`startDate${index + 1}`],
         );
         docData[`endDate${index + 1}`] = formatDateShort(
-          segment[`endDate${index + 1}`]
+          segment[`endDate${index + 1}`],
         );
 
         const originalBilledInput = document.querySelector(
-          `input[name="originalBilled${index + 1}"]`
+          `input[name="originalBilled${index + 1}"]`,
         );
         const correctedBilledInput = document.querySelector(
-          `input[name="correctedBilled${index + 1}"]`
+          `input[name="correctedBilled${index + 1}"]`,
         );
         const originalUsageInput = document.querySelector(
-          `input[name="originalUsage${index + 1}"]`
+          `input[name="originalUsage${index + 1}"]`,
         );
         const correctedUsageInput = document.querySelector(
-          `input[name="correctedUsage${index + 1}"]`
+          `input[name="correctedUsage${index + 1}"]`,
         );
 
         // Check if the inputs are present before accessing their values
@@ -143,14 +146,14 @@ function generateDocument(
           console.log(`Corrected Billed ${index + 1}:`, correctedBilled);
           console.log(
             `Difference Billed ${index + 1}:`,
-            differenceBilled.toFixed(2)
+            differenceBilled.toFixed(2),
           );
 
           console.log(`Original Usage ${index + 1}:`, originalUsage);
           console.log(`Corrected Usage ${index + 1}:`, correctedUsage);
           console.log(
             `Difference Usage ${index + 1}:`,
-            differenceUsage.toFixed(0)
+            differenceUsage.toFixed(0),
           );
 
           // Add table data to docData

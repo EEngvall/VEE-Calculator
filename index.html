@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Energy Usage Recalculator</title>
@@ -294,21 +294,34 @@
                                   name="meterNumber"
                                 />
                                 <label for="floatingInput">Meter Number</label>
-                                <!-- Checkbox to indicate if mailing address is same as premise address -->
-                                <div class="form-check form-switch mt-3 mb-3">
-                                  <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="sameAsPremiseCheckbox"
-                                    checked
-                                  />
-                                  <label
-                                    class="form-check-label"
-                                    for="sameAsPremiseCheckbox"
-                                  >
-                                    Mailing Address same as Premise Address
-                                  </label>
-                                </div>
+                              </div>
+
+                              <div class="form-floating mt-3 col-4 gx-1">
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  id="billDate"
+                                  name="billDate"
+                                />
+                                <label for="removalDate" class="form-label"
+                                  >Next Bill Date</label
+                                >
+                              </div>
+
+                              <!-- Checkbox to indicate if mailing address is same as premise address -->
+                              <div class="form-check form-switch mt-3 mb-3">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  id="sameAsPremiseCheckbox"
+                                  checked
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="sameAsPremiseCheckbox"
+                                >
+                                  Mailing Address same as Premise Address
+                                </label>
                               </div>
                             </div>
                             <!-- Mailing Address Section (Initially Hidden) -->
