@@ -65,7 +65,7 @@ function generateDocument(
         premiseState: combinedFormData.customerAndPremiseInfo.premiseState,
         premiseZip: combinedFormData.customerAndPremiseInfo.premiseZip,
         removalDate: formatDate(combinedFormData.offCanvasData.removalDate),
-        meterNumber: combinedFormData.customerAndPremiseInfo.meterNumber,
+        meterNumber: combinedFormData.offCanvasData.meterNumber,
         netDifferenceBilled: totalDifferences.totalDifferenceBilled.toFixed(2),
         netDifferenceUsage: totalDifferences.totalDifferenceUsage,
         newChargeDate: combinedFormData.customerAndPremiseInfo.newChargeDate,

@@ -285,7 +285,7 @@
                                   >Premise Zip Code</label
                                 >
                               </div>
-                              <div class="form-floating mt-3 col-4 gx-1">
+                              <!-- <div class="form-floating mt-3 col-4 gx-1">
                                 <input
                                   type="text"
                                   class="form-control form-control-sm"
@@ -294,7 +294,7 @@
                                   name="meterNumber"
                                 />
                                 <label for="floatingInput">Meter Number</label>
-                              </div>
+                              </div> -->
 
                               <div class="form-floating mt-3 col-4 gx-1">
                                 <input
@@ -454,7 +454,7 @@
               <!-- Additional Data Section (Off-canvas Data) -->
               <section>
                 <div
-                  class="offcanvas offcanvas-end"
+                  class="offcanvas offcanvas-start"
                   id="offCanvasFormContainer"
                   tabindex="-1"
                   data-bs-backdrop="static"
@@ -474,6 +474,16 @@
                   <div class="offcanvas-body">
                     <form id="offCanvasForm">
                       <!-- Off-canvas form fields -->
+                      <div class="mb-3">
+                        <label for="floatingInput">Meter Number</label>
+                        <input
+                          type="text"
+                          class="form-control form-control-sm"
+                          id="meterNumber"
+                          placeholder="Meter Number"
+                          name="meterNumber"
+                        />
+                      </div>
                       <div class="mb-3">
                         <label for="removalDate" class="form-label"
                           >Meter Removal Date</label
