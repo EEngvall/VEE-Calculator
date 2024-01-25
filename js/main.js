@@ -39,9 +39,9 @@ function addBillSegment() {
   <!-- Bill segment inputs here -->
   <label>Start Date: <input type="date" name="startDate${segmentIndex}" class="start-date form-control" required ></label>
   <label>End Date: <input type="date" name="endDate${segmentIndex}" class="end-date form-control" required></label>
-  <label>2020 Usage: <input type="number" name="usage2020-${segmentIndex}" class="form-control"></label>
-  <label>2021 Usage: <input type="number" name="usage2021-${segmentIndex}" class="form-control"></label>
-  <label>2022 Usage: <input type="number" name="usage2022-${segmentIndex}" class="form-control"></label>
+  <label>Y1 Usage: <input type="number" name="usage2020-${segmentIndex}" class="form-control"></label>
+  <label>Y2 Usage: <input type="number" name="usage2021-${segmentIndex}" class="form-control"></label>
+  <label>Y3 Usage: <input type="number" name="usage2022-${segmentIndex}" class="form-control"></label>
 </div>
   `;
   segmentDiv.innerHTML = segmentContent;

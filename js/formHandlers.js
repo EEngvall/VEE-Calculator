@@ -14,7 +14,7 @@ function saveConfig() {
 
   // Save the CSR name to a cookie
   document.cookie = `csrName=${encodeURIComponent(
-    csrName
+    csrName,
   )}; expires=Thu, 31 Dec 2099 23:59:59 GMT; path=/`;
 
   // Update the currently loaded CSR name in the alert div
@@ -118,10 +118,10 @@ function handleOffCanvasFormSubmit(event) {
 
 document.addEventListener("DOMContentLoaded", function () {
   const sameAsPremiseCheckbox = document.getElementById(
-    "sameAsPremiseCheckbox"
+    "sameAsPremiseCheckbox",
   );
   const mailingAddressSection = document.getElementById(
-    "mailingAddressSection"
+    "mailingAddressSection",
   );
 
   // Function to update the mailing address based on premise address
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document
         .getElementById(id)
         .addEventListener("change", updateMailingAddress);
-    }
+    },
   );
 
   // Function to handle the checkbox change
