@@ -49,24 +49,6 @@ window.addEventListener("load", retrieveSavedCSRName);
 
 // Handle Customer and Premise Info Form Submission
 
-function handleCustomerAndPremiseInfoFormSubmit(event) {
-  event.preventDefault();
-  const form = event.target;
-  const formData = new FormData(form);
-  let customerAndPremiseInfo = {};
-
-  for (let [key, value] of formData.entries()) {
-    customerAndPremiseInfo[key] = value;
-  }
-
-  // Store customer and premise info in the global object
-  globalDataObject.customerAndPremiseInfo = customerAndPremiseInfo;
-  updateListItemStyle("task1", true);
-  customerInfoSubmitted = true;
-
-  console.log(customerAndPremiseInfo);
-}
-
 function handleBillSegmentData() {
   event.preventDefault();
   let billSegmentsData = [];
@@ -220,6 +202,52 @@ function updateListItemStyle(taskId, isSuccess) {
   }
 }
 
+function handleCustomerAndPremiseInfoFormSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+
+  // If you have additional actions to perform on form submission, you can do them here
+
+  // Store customer and premise info in the global object
+  globalDataObject.customerAndPremiseInfo = getFormDataAsObject(form);
+  updateListItemStyle("task1", true);
+  customerInfoSubmitted = true;
+
+  console.log(globalDataObject.customerAndPremiseInfo);
+}
+
+// Function to convert form data to an object
+function getFormDataAsObject(form) {
+  const formData = new FormData(form);
+  let customerAndPremiseInfo = {};
+
+  formData.forEach((value, key) => {
+    customerAndPremiseInfo[key] = value;
+  });
+
+  return customerAndPremiseInfo;
+}
+
+// Function to handle input changes
+function handleInput(event) {
+  const inputField = event.target;
+  const inputValue = inputField.value;
+  const inputName = inputField.name;
+
+  // Update the customerAndPremiseInfo object with the new input value
+  globalDataObject.customerAndPremiseInfo[inputName] = inputValue;
+
+  // You can perform any other actions based on the input here
+  console.log(`Input field ${inputName} changed to: ${inputValue}`);
+}
+
+// Get all input elements in the form
+const inputFields = document.querySelectorAll("#customerInfoForm input");
+
+// Add the event listener to each input element
+inputFields.forEach((input) => {
+  input.addEventListener("input", handleInput);
+});
 // Example usage:
 // After all forms have been submitted, you can call combineAllFormData
 // to get a single object with all the data combined.
