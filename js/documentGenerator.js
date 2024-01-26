@@ -94,16 +94,16 @@ function generateDocument(
       // Loop through each bill segment and add corresponding data to docData
       combinedFormData.billSegments.forEach((segment, index) => {
         // Log the structure of each segment
-        console.log(`Segment ${index + 1}:`, segment);
-        // Log the formatted dates to the console
-        console.log(
-          `Formatted Start Date ${index + 1}:`,
-          formatDate(segment[`startDate${index + 1}`]),
-        );
-        console.log(
-          `Formatted End Date ${index + 1}:`,
-          formatDate(segment[`endDate${index + 1}`]),
-        );
+        // console.log(`Segment ${index + 1}:`, segment);
+        // // Log the formatted dates to the console
+        // console.log(
+        //   `Formatted Start Date ${index + 1}:`,
+        //   formatDate(segment[`startDate${index + 1}`]),
+        // );
+        // console.log(
+        //   `Formatted End Date ${index + 1}:`,
+        //   formatDate(segment[`endDate${index + 1}`]),
+        // );
 
         // Use backticks (`) for string interpolation
         docData[`startDate${index + 1}`] = formatDateShort(
@@ -141,20 +141,20 @@ function generateDocument(
           const correctedUsage = parseFloat(correctedUsageInput.value) || 0;
           const differenceUsage = correctedUsage - originalUsage;
 
-          // Log extracted values for confirmation
-          console.log(`Original Billed ${index + 1}:`, originalBilled);
-          console.log(`Corrected Billed ${index + 1}:`, correctedBilled);
-          console.log(
-            `Difference Billed ${index + 1}:`,
-            differenceBilled.toFixed(2),
-          );
+          // // Log extracted values for confirmation
+          // console.log(`Original Billed ${index + 1}:`, originalBilled);
+          // console.log(`Corrected Billed ${index + 1}:`, correctedBilled);
+          // console.log(
+          //   `Difference Billed ${index + 1}:`,
+          //   differenceBilled.toFixed(2),
+          // );
 
-          console.log(`Original Usage ${index + 1}:`, originalUsage);
-          console.log(`Corrected Usage ${index + 1}:`, correctedUsage);
-          console.log(
-            `Difference Usage ${index + 1}:`,
-            differenceUsage.toFixed(0),
-          );
+          // console.log(`Original Usage ${index + 1}:`, originalUsage);
+          // console.log(`Corrected Usage ${index + 1}:`, correctedUsage);
+          // console.log(
+          //   `Difference Usage ${index + 1}:`,
+          //   differenceUsage.toFixed(0),
+          // );
 
           // Add table data to docData
           docData[`originalBilled${index + 1}`] = originalBilled.toFixed(2);
@@ -202,7 +202,7 @@ function generateDocument(
       console.error("Error fetching the template:", error);
     });
 
-  console.log("Document Data:", combinedFormData);
+  // console.log("Document Data:", combinedFormData);
   // console.log("Selected Template: ", templateToUse);
   // console.log("Uploaded Template File:", uploadedTemplate);
 }

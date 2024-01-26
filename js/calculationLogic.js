@@ -35,7 +35,7 @@ function calculateBillSegmentData(billSegments) {
     // Calculate the number of days in the billing period
     let days = calculateDaysInBillingPeriod(
       segment[`startDate${index + 1}`],
-      segment[`endDate${index + 1}`]
+      segment[`endDate${index + 1}`],
     );
 
     // Calculate total consumption for this segment
@@ -61,7 +61,7 @@ function calculateBillSegmentData(billSegments) {
       averageUsage,
       totalConsumption,
       days,
-      totalOverallConsumption
+      totalOverallConsumption,
     );
   });
   // console.log(calculations);
@@ -84,7 +84,7 @@ function appendUsageInfo(
   averageUsage,
   totalConsumption,
   days,
-  totalOverallConsumption
+  totalOverallConsumption,
 ) {
   // Create a div element for each segment's usage information
   let usageInfoDiv = document.createElement("div");
@@ -92,10 +92,10 @@ function appendUsageInfo(
   // Format the information and set it as the innerHTML of the div
   usageInfoDiv.innerHTML = `
       <p>${formatDate(startDate)} - ${formatDate(
-    endDate
-  )} (${days} Days) Average Usage: ${averageUsage.toFixed(
-    0
-  )} kWh/Day, Total Consumption: ${totalConsumption.toFixed(0)} kWh</p>
+        endDate,
+      )} (${days} Days) Average Usage: ${averageUsage.toFixed(
+        0,
+      )} kWh/Day, Total Consumption: ${totalConsumption.toFixed(0)} kWh</p>
   `;
 
   // Append the div to the usageInfoContainer
@@ -106,14 +106,14 @@ function appendUsageInfo(
   // Add total overall consumption to the bottom of the container
   let totalOverallDiv = document.createElement("div");
   totalOverallDiv.innerHTML = `<p>Total Overall Consumption: ${totalOverallConsumption.toFixed(
-    0
+    0,
   )} kWh</p>`;
   // Clear existing content and add total overall consumption to the new container
   let totalOverallContainer = document.getElementById(
-    "totalOverallConsumptionContainer"
+    "totalOverallConsumptionContainer",
   );
   totalOverallContainer.innerHTML = `<p>Total Overall Consumption: ${totalOverallConsumption.toFixed(
-    0
+    0,
   )} kWh</p>`;
 }
 
@@ -132,6 +132,6 @@ function performCalculationsAfterFormSubmission() {
   event.preventDefault();
   const billSegmentsData = handleBillSegmentData(); // Collect bill segment data
   const calculationResults = calculateBillSegmentData(billSegmentsData); // Perform calculations
-  console.log("Calculation Results:", calculationResults);
+  // console.log("Calculation Results:", calculationResults);
   // Any additional logic that needs to be performed after calculations
 }

@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
           let combinedFormData = combineAllFormData();
           const calculationResults = calculateBillSegmentData(billSegmentsData);
           // Continue with any additional logic or logging if needed
-          console.log("Calculation Results:", calculationResults);
+          // console.log("Calculation Results:", calculationResults);
         });
       } else {
         // Display an alert if start and end dates are not filled in for all segments

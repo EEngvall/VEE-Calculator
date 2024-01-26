@@ -23,7 +23,7 @@ function saveConfig() {
   // Show the alert div
   document.getElementById("currentlyLoadedAlert").style.display = "block";
   // Log the saved CSR name to the console (for demonstration purposes)
-  console.log("Saved CSR name:", csrName);
+  // console.log("Saved CSR name:", csrName);
 }
 
 // Function to retrieve the CSR name from the cookie on page load
@@ -82,7 +82,7 @@ function handleOffCanvasFormSubmit(event) {
 
   // Store off-canvas data in global object
   globalDataObject.offCanvasData = offCanvasData;
-  console.log("Off-Canvas Data:", offCanvasData);
+  // console.log("Off-Canvas Data:", offCanvasData);
 
   // Close the off-canvas window
   const offCanvasElement = document.getElementById("offCanvasFormContainer");
@@ -213,7 +213,7 @@ function handleCustomerAndPremiseInfoFormSubmit(event) {
   updateListItemStyle("task1", true);
   customerInfoSubmitted = true;
 
-  console.log(globalDataObject.customerAndPremiseInfo);
+  // console.log(globalDataObject.customerAndPremiseInfo);
 }
 
 // Function to convert form data to an object
@@ -236,9 +236,6 @@ function handleInput(event) {
 
   // Update the customerAndPremiseInfo object with the new input value
   globalDataObject.customerAndPremiseInfo[inputName] = inputValue;
-
-  // You can perform any other actions based on the input here
-  console.log(`Input field ${inputName} changed to: ${inputValue}`);
 }
 
 // Get all input elements in the form

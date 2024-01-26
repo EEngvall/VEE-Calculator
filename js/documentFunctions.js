@@ -188,7 +188,7 @@ function createWordDocument(formDataObject) {
     }
   });
 
-  console.log("formDataObject:", formDataObject);
+  // console.log("formDataObject:", formDataObject);
 
   // Choose the template based on the number of bill segments
   let templatePath =
@@ -196,7 +196,7 @@ function createWordDocument(formDataObject) {
       ? defaultTemplatePath
       : alternateTemplatePath;
 
-  console.log("Selected Template Path: ", templatePath);
+  // console.log("Selected Template Path: ", templatePath);
 
   let fetchPromise = uploadedTemplate
     ? Promise.resolve(new Blob([uploadedTemplate]))
@@ -260,7 +260,7 @@ function formatDateToLongString(dateString) {
 }
 
 // Example usage
-console.log(formatDateToLongString("2023-11-01")); // "November 1st, 2023"
+// console.log(formatDateToLongString("2023-11-01")); // "November 1st, 2023"
 
 function formatDate(dateString) {
   const monthNames = [
@@ -291,7 +291,7 @@ document.getElementById("generateDoc").addEventListener("click", function () {
   let formDataObject = processFormData(); // Get existing form data, including initial bill segment data
   formDataObject = mergeBillSegmentData(formDataObject); // Add/merge additional bill segment data
   Object.assign(formDataObject, offCanvasData); // Merge off-canvas data if needed
-  console.log("formDataObject before doc creation:", formDataObject);
+  // console.log("formDataObject before doc creation:", formDataObject);
 
   createWordDocument(formDataObject); // Pass the combined data to createWordDocument
 });

@@ -1,6 +1,6 @@
 function updateCustomerContactSummary(calculations) {
   let differences = getTotalDifferences();
-  console.log(getTotalDifferences());
+  // console.log(getTotalDifferences());
   const summaryContainer = document.getElementById("customerContactSummary");
   summaryContainer.innerHTML = ""; // Clear previous content
   const summarySection = document.getElementById(
@@ -69,7 +69,7 @@ function updateCustomerContactSummary(calculations) {
 
   // Display the summary section
   summarySection.style.display = "block";
-  console.log(globalDataObject);
+  // console.log(globalDataObject);
 
   // Add event listener to the copy button
   const copyBtn = document.getElementById("copyToClipboardBtn");
