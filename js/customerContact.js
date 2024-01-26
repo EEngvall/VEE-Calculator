@@ -11,7 +11,7 @@ function updateCustomerContactSummary(calculations) {
   // Create a paragraph for the initial content
   const initialContentParagraph = document.createElement("p");
   initialContentParagraph.textContent = `Meter ${
-    globalDataObject.customerAndPremiseInfo.meterNumber
+    globalDataObject.offCanvasData.meterNumber
   } had ${errorType} activity occur on ${formatDateShort(
     globalDataObject.offCanvasData.errorDate,
   )} showing estimation start ${formatDateShort(
