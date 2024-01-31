@@ -124,4 +124,8 @@ document
   .getElementById("resetButton")
   .addEventListener("click", resetApplication);
 
+document
+.getElementById("resetButton2")
+.addEventListener("click", resetApplication);
+
 // Other utility functions...
