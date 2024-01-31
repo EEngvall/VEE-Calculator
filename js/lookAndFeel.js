@@ -10,3 +10,15 @@ document.getElementById("toggleSideBtn").addEventListener("click", function () {
     offcanvasElement.classList.add("offcanvas-end");
   }
 });
+
+function toggleBootstrapStyle() {
+  document.querySelectorAll(".btn").forEach((button) => {
+    if (button.classList.contains("tid-btn-blue")) {
+      button.classList.remove("tid-btn-blue");
+      button.classList.add("btn-primary");
+    } else {
+      button.classList.remove("btn-primary");
+      button.classList.add("tid-btn-blue");
+    }
+  });
+}

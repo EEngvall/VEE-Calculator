@@ -7,22 +7,29 @@ table.equal-width {
 /* Set equal width for each column */
 table.equal-width th,
 table.equal-width td {
-  width: 25%; /* Adjust as needed */
+  width: 25%;
+  /* Adjust as needed */
 }
 
 #leftSection {
-  width: 200px; /* Set a specific width for the left section */
+  width: 200px;
+  /* Set a specific width for the left section */
 }
+
 #taskList li {
   list-style-type: none;
-  margin: 5px 0; /* Add margin for spacing between items */
+  margin: 5px 0;
+  /* Add margin for spacing between items */
   display: block;
-  width: fit-content; /* Set the width to fit the content */
-  height: 30px; /* Set the desired fixed height */
+  width: fit-content;
+  /* Set the width to fit the content */
+  height: 30px;
+  /* Set the desired fixed height */
 }
 
 #taskList {
-  text-align: center; /* Center the list items */
+  text-align: center;
+  /* Center the list items */
 }
 
 #tasklist ul {
@@ -46,12 +53,28 @@ table.equal-width td {
 
 .task-incomplete {
   color: #fff;
-  background-color: #fa0800; /* Bootstrap's red */
+  background-color: #fa0800;
+  /* Bootstrap's red */
   border-color: #fa0800;
 }
 
 .task-complete {
   color: #fff;
-  background-color: #007500; /* Bootstrap's green */
+  background-color: #007500;
+  /* Bootstrap's green */
   border-color: #007500;
+}
+
+.tid-blue {
+  color: #005e7d
+}
+
+.tid-btn-green {
+  outline: none !important;
+  background-color: #acd038 !important
+}
+
+.tid-btn-blue {
+  outline: none !important;
+  background-color: #005e7d !important
 }
